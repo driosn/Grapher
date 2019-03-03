@@ -7,6 +7,15 @@ import { HomeComponent } from './home/home.component';
 import { NewProjectComponent } from './new-project/new-project.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'new-project', component: NewProjectComponent},
+  {path: 'sign-in', component: SignInComponent},
+  {path: 'sign-up', component: SignUpComponent}
+]
 
 @NgModule({
   declarations: [
@@ -14,11 +23,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     HomeComponent,
     NewProjectComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
