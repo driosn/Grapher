@@ -12,9 +12,9 @@ import { Routes, RouterModule } from '@angular/router';
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'new-project', component: NewProjectComponent},
-  {path: 'sign-in', component: SignInComponent},
-  {path: 'sign-up', component: SignUpComponent}
+  {path: 'new_project', component: NewProjectComponent},
+  {path: 'sign_in', component: SignInComponent},
+  {path: 'sign_up', component: SignUpComponent}
 ]
 
 @NgModule({
