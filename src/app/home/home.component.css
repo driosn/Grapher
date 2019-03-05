@@ -1,5 +1,9 @@
-h1, h2{
+
+h1, h2{ 
   color: white;
+  font-family: monospace 
+}
+
+.title{
   background-color: #101E2C;
-  margin: 0; 
 }
