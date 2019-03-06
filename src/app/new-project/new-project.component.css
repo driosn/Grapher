@@ -1,5 +1,7 @@
 .project{
   background-color: #101E2C;
+  float: left;
+  margin-left: 5%;
 }
 
 #pj-name{
@@ -14,4 +16,19 @@
 #working-canvas{
   background-color: white;
   border:10px solid #1976D2 ; 
+}
+
+.options{
+  float: left;
+  margin-left: 5%;
+}
+
+.options{
+  font-family: 'Rock Salt', cursive;
+  color: white;
+}
+
+input[type="radio"]{
+  margin-top: 2.5em;
+  margin-right: 2em;
 }

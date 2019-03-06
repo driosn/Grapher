@@ -4,7 +4,7 @@ h1, h2{
   font-family: 'Rock Salt', cursive;
   font-size: 3em;
   padding: 25px;
-  text-shadow: 0 0 px #1E88E5;
+  text-shadow: 0 0 250px #1976D2;
 }
 
 .title{
@@ -15,4 +15,9 @@ h1, h2{
   font-family: 'Rock Salt', cursive;
   padding: 25px;
   font-size: 2em; 
+  text-shadow: 0 0 250px #1976D2;
+}
+
+.result-buttons{
+  margin: 5em;
 }
