@@ -1,4 +1,17 @@
-h1{
-  color: white;
+.project{
   background-color: #101E2C;
+}
+
+#pj-name{
+  background-color: #101E2C;
+  margin: 0;
+  border: 0px;
+  font-family: 'Rock Salt', cursive;
+  color: white;
+  width: 25%;
+}
+
+#working-canvas{
+  background-color: white;
+  border:10px solid #1976D2 ; 
 }
