@@ -1,9 +1,18 @@
 
 h1, h2{ 
   color: white;
-  font-family: monospace 
+  font-family: 'Rock Salt', cursive;
+  font-size: 3em;
+  padding: 25px;
+  text-shadow: 0 0 20px #3A38FF;
 }
 
 .title{
   background-color: #101E2C;
+}
+
+#new-project-btn{
+  font-family: 'Rock Salt', cursive;
+  padding: 25px;
+  font-size: 2em; 
 }
