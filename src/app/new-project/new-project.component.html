@@ -7,14 +7,14 @@
       </div>
       <div class="options">
         <br><br><br><br><br><br>
-        <h2>What do you want to do?</h2>
+        <h2>What do you want to do?</h2><br>
         <form>
-          <fieldset id="radio-options">
-              <input id="nodes-radio" type="radio" value="Add a node" name="group"><label for="nodes-radio"> Add a Node</label> <br>
-              <input id="ur-radio" type="radio" value="Undirected Relation" name="group"><label for="ur-radio"> Undirected Relation</label><br>
-              <input id="dr-radio" type="radio" value="Directed Relation" name="group"><label for="dr-radio"> Directed Relation</label><br>
-          </fieldset>
+          <input type="checkbox" name="isActive" [(ngModel)]="isActive"><span style="margin: 20px;">Add a Node</span>
         </form><br>
+        <div class="options-buttons">
+          <button id="ur-btn" type="button" class="btn btn-outline-primary btn-lg" style="color: white; border-color: white" >Add Undirected Relation</button>
+            <button id="dr-btn" type="button" class="btn btn-outline-primary btn-lg" style="color: white; border-color: white">Add Directed Relation</button>
+        </div><br>
         <div class="result-buttons">
             <button id="dfs-btn" type="button" class="btn btn-outline-primary btn-lg" style="color: white; border-color: white" >D F S</button>
             <button id="bfs-btn" type="button" class="btn btn-outline-primary btn-lg" style="color: white; border-color: white">B F S</button>
