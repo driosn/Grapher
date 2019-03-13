@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Graph } from './GraphClass/graph-class';
 
 var nodeVal;
+var relationVal: boolean;
+var clickCounter: number;
+var clickX: number;
+var clickY: number;
+var clickX_ant: number;
+var clickY_ant: number;
 
 @Component({
   selector: 'app-new-project',
@@ -19,6 +25,12 @@ export class NewProjectComponent implements OnInit {
 
   constructor() {
     nodeVal = 1;
+    relationVal = true;
+    clickCounter = 0;
+    clickX = 0;
+    clickY = 0;
+    clickX_ant = 0; 
+    clickY_ant = 0;
   }
 
   ngOnInit() {
@@ -29,32 +41,81 @@ export class NewProjectComponent implements OnInit {
     console.log(`Ancho del canvas ${this.canvas.width}`);
     console.log(`Alto del canvas ${this.canvas.height}`);
     this.canvas.addEventListener('click', (ev) => {
-      this.newNode(ev);
+      this.optionSelector(ev);
     });
-    this.ur_button.addEventListener('click', () => {
-      this.addUndirectedRelation();
+    this.ur_button.addEventListener('click', (ev) => {
+      this.addUndirectedRelation(ev);
     });
-    this.dr_button.addEventListener('click', () => {
-      this.addDirectedRelation();
+    this.dr_button.addEventListener('click', (ev) => {
+      this.addDirectedRelation(ev);
     });
   }
 
-  newNode(ev){
-    if(this.isActive === true){
-      var node = new Graph(nodeVal, ev.offsetX, ev.offsetY, this.canvas, this.ctx);
-      nodeVal++;
+  optionSelector(ev){
+    if(this.isActive === true) this.newNode(ev);
+    else{
+      if(relationVal){
+        console.log(relationVal);
+        this.setClicks(ev);
+        this.lineDrawer_DR();
+      }else{
+        console.log(relationVal);
+        this.setClicks(ev);
+        this.lineDrawer_UR();
+      }
     }
   }
 
-  addUndirectedRelation(){
-    if(this.isActive) this.isActive = !this.isActive;
-    alert('Undirected Relation');
+  newNode(pos){
+    var node = new Graph(nodeVal, pos.offsetX, pos.offsetY, this.canvas, this.ctx);
+    nodeVal++;
   }
 
-  addDirectedRelation(){
+  addUndirectedRelation(ev){
     if(this.isActive) this.isActive = !this.isActive;
-    alert('Directed Relation');
+    relationVal = false;
   }
 
+  addDirectedRelation(ev){
+    if(this.isActive) this.isActive = !this.isActive;
+    relationVal = true;
+  }
 
+  setClicks(ev){
+    clickCounter++;
+    clickX_ant = clickX;
+    clickY_ant = clickY;
+    clickX = ev.offsetX;
+    clickY = ev.offsetY;
+  }
+  
+  lineDrawer_UR(){
+    if(clickCounter === 2){
+      console.log(`El click counter es: ${clickCounter}`)
+      console.log(`ClickX: ${clickX}, ClickY: ${clickY}, ClickX_ant: ${clickX_ant}, ClickY_ant: ${clickY_ant}`)
+      this.canvas = document.getElementById('working-canvas');
+      this.ctx = this.canvas.getContext('2d');
+      this.ctx.beginPath();
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeStyle = '#FF0000';
+      this.ctx.moveTo(clickX_ant, clickY_ant);
+      this.ctx.lineTo(clickX, clickY);
+      this.ctx.stroke();
+      clickCounter = 0;
+    }
+  }
+
+  lineDrawer_DR(){
+    if(clickCounter === 2){
+      this.canvas = document.getElementById('working-canvas');
+      this.ctx = this.canvas.getContext('2d');
+      this.ctx.beginPath();
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeStyle = '#FF0000';
+      this.ctx.moveTo(clickX_ant, clickY_ant);
+      this.ctx.moveTo(clickX, clickY);
+      this.ctx.stroke(); 
+      clickCounter = 0;
+    }
+  }
 }
