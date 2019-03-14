@@ -9,6 +9,8 @@ var clickX: number;
 var clickY: number;
 var clickX_ant: number;
 var clickY_ant: number;
+var node_ant: any;
+var node_fin: any;
 
 @Component({
   selector: 'app-new-project',
@@ -33,6 +35,8 @@ export class NewProjectComponent implements OnInit {
     clickY = 0;
     clickX_ant = 0; 
     clickY_ant = 0;
+    node_ant = 0;
+    node_fin = 0;
     this.project_graph = new Graph();
   }
 
@@ -61,10 +65,16 @@ export class NewProjectComponent implements OnInit {
         console.log(relationVal);
         this.setClicks(ev);
         this.lineDrawer_DR();
+        console.log(`El nodo inicial es ${node_ant.value}`);
+        console.log(`El nodo final es ${node_fin.value}`);
+        this.relationNodes(node_ant.value, node_fin.value, this.project_graph);
       }else{
         console.log(relationVal);
         this.setClicks(ev);
         this.lineDrawer_UR();
+        console.log(`El nodo inicial es ${node_ant.value}`);
+        console.log(`El nodo final es ${node_fin.value}`);
+        this.relationNodes(node_ant.value, node_fin.value, this.project_graph);
       }
     }
   }
@@ -93,6 +103,7 @@ export class NewProjectComponent implements OnInit {
     clickCounter++;
     clickX_ant = clickX;
     clickY_ant = clickY;
+    node_ant = node_fin;
     for(let i=0; i<this.project_graph.nodes.length; i++)
       if(this.project_graph.nodes[i].quadrant === clickQuadrant){
         pointDistance = Math.sqrt(Math.pow((this.project_graph.nodes[i].positionX - ev.offsetX), 2) + (Math.pow((this.project_graph.nodes[i].positionY - ev.offsetY), 2)));
@@ -100,6 +111,7 @@ export class NewProjectComponent implements OnInit {
           minPointDistance = pointDistance;
           clickX = this.project_graph.nodes[i].positionX;
           clickY = this.project_graph.nodes[i].positionY;
+          node_fin = this.project_graph.nodes[i];
         }
       }
   }
@@ -139,5 +151,19 @@ export class NewProjectComponent implements OnInit {
     if(ev.offsetX > 450 && ev.offsetY < 350) return 2;
     if(ev.offsetX < 450 && ev.offsetY > 350) return 3;
     if(ev.offsetX > 450 && ev.offsetY > 350) return 4;
+  }
+
+  relationNodes(val_1: number, val_2: number, myGraph: Graph){
+    let node_1: Node;
+    let node_2: Node;
+    for(let i=0; i<myGraph.nodes.length; i++){
+      if(val_1 === myGraph.nodes[i].value){
+        node_1 = myGraph.nodes[i];
+      }
+      if(val_2 === myGraph.nodes[i].value){
+        node_2 = myGraph.nodes[i];
+      }
+    }
+    console.log(`Relacionamos el nodo ${node_1.value} con el nodo ${node_2.value}`);
   }
 }

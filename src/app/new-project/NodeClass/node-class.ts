@@ -3,8 +3,10 @@ export class Node{
   public positionX: number;
   public positionY: number;
   public quadrant: number;
+  public relations: Array<Node>;
 
   public constructor(val: number, posX: number, posY: number, canvas: any, ctx: CanvasRenderingContext2D){
+    this.relations = new Array();
     this.value = val;
     this.positionX = posX;
     this.positionY = posY;
