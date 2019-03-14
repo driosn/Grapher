@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Node } from './NodeClass/node-class';
 import { Graph } from './GraphClass/graph-class';
 
 var nodeVal;
@@ -22,6 +23,7 @@ export class NewProjectComponent implements OnInit {
   ctx: CanvasRenderingContext2D;
   ur_button;
   dr_button;
+  project_graph: Graph;
 
   constructor() {
     nodeVal = 1;
@@ -31,6 +33,7 @@ export class NewProjectComponent implements OnInit {
     clickY = 0;
     clickX_ant = 0; 
     clickY_ant = 0;
+    this.project_graph = new Graph();
   }
 
   ngOnInit() {
@@ -67,7 +70,9 @@ export class NewProjectComponent implements OnInit {
   }
 
   newNode(pos){
-    var node = new Graph(nodeVal, pos.offsetX, pos.offsetY, this.canvas, this.ctx);
+    var node = new Node(nodeVal, pos.offsetX, pos.offsetY, this.canvas, this.ctx);
+    this.project_graph.addNode(node);
+    console.log(this.project_graph);
     nodeVal++;
   }
 
@@ -82,11 +87,21 @@ export class NewProjectComponent implements OnInit {
   }
 
   setClicks(ev){
+    let clickQuadrant = this.evalateQuadrant(ev);
+    let minPointDistance = 500;
+    let pointDistance;
     clickCounter++;
     clickX_ant = clickX;
     clickY_ant = clickY;
-    clickX = ev.offsetX;
-    clickY = ev.offsetY;
+    for(let i=0; i<this.project_graph.nodes.length; i++)
+      if(this.project_graph.nodes[i].quadrant === clickQuadrant){
+        pointDistance = Math.sqrt(Math.pow((this.project_graph.nodes[i].positionX - ev.offsetX), 2) + (Math.pow((this.project_graph.nodes[i].positionY - ev.offsetY), 2)));
+        if(pointDistance < minPointDistance){
+          minPointDistance = pointDistance;
+          clickX = this.project_graph.nodes[i].positionX;
+          clickY = this.project_graph.nodes[i].positionY;
+        }
+      }
   }
   
   lineDrawer_UR(){
@@ -117,5 +132,12 @@ export class NewProjectComponent implements OnInit {
       this.ctx.stroke(); 
       clickCounter = 0;
     }
+  }
+
+  evalateQuadrant(ev){
+    if(ev.offsetX < 450 && ev.offsetY < 350) return 1;
+    if(ev.offsetX > 450 && ev.offsetY < 350) return 2;
+    if(ev.offsetX < 450 && ev.offsetY > 350) return 3;
+    if(ev.offsetX > 450 && ev.offsetY > 350) return 4;
   }
 }
