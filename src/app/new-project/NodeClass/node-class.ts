@@ -32,6 +32,11 @@ export class Node{
     if(posX > 450 && posY > 350) this.quadrant = 4;
   }
 
+  addRelation(nodeToAdd: Node){
+    this.relations.push(nodeToAdd);
+  }
+
+
   
 
 }
