@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Node } from './NodeClass/node-class';
 import { Graph } from './GraphClass/graph-class';
+import { discardPeriodicTasks } from '@angular/core/testing';
+import { setRootDomAdapter } from '@angular/platform-browser/src/dom/dom_adapter';
 
 var nodeVal;
 var relationVal: boolean;
@@ -25,6 +27,8 @@ export class NewProjectComponent implements OnInit {
   ctx: CanvasRenderingContext2D;
   ur_button;
   dr_button;
+  dfs_button;
+  bfs_button;
   project_graph: Graph;
 
   constructor() {
@@ -43,6 +47,8 @@ export class NewProjectComponent implements OnInit {
   ngOnInit() {
     this.ur_button = document.getElementById('ur-btn');
     this.dr_button = document.getElementById('dr-btn');
+    this.dfs_button = document.getElementById('dfs-btn');
+    this.bfs_button = document.getElementById('bfs-btn');
     this.canvas = document.getElementById('working-canvas');
     this.ctx = this.canvas.getContext('2d');
     console.log(`Ancho del canvas ${this.canvas.width}`);
@@ -56,9 +62,14 @@ export class NewProjectComponent implements OnInit {
     this.dr_button.addEventListener('click', (ev) => {
       this.addDirectedRelation(ev);
     });
+    this.dfs_button.addEventListener('click', () =>{
+      console.log('Inicio DFS');
+      this.startDFS(this.project_graph);
+    });
   }
 
   optionSelector(ev){
+    console.log(relationVal);
     if(this.isActive === true) this.newNode(ev);
     else{
       if(relationVal){
@@ -74,6 +85,7 @@ export class NewProjectComponent implements OnInit {
         console.log(this.project_graph.nodes[posNodeFin]);
       }
     }
+    console.log(this.project_graph);
   }
 
   newNode(pos){
@@ -91,6 +103,10 @@ export class NewProjectComponent implements OnInit {
   addDirectedRelation(ev){
     if(this.isActive) this.isActive = !this.isActive;
     relationVal = true;
+  }
+
+  startDFS(mygraph: Graph){
+    this.project_graph.dfs(this.project_graph.nodes[0]);
   }
 
   setClicks(ev){
@@ -138,13 +154,18 @@ export class NewProjectComponent implements OnInit {
     if(clickCounter === 2){
       this.canvas = document.getElementById('working-canvas');
       this.ctx = this.canvas.getContext('2d');
-      this.ctx.beginPath();
-      this.ctx.lineWidth = 3;
-      this.ctx.strokeStyle = '#FF0000';
+      var headlen = 10;   // length of head in pixels
+      var angle = Math.atan2(clickY-clickY_ant,clickX-clickX_ant);
       this.ctx.moveTo(clickX_ant, clickY_ant);
+      this.ctx.lineTo(clickX, clickY);
+      this.ctx.lineTo(clickX-headlen*Math.cos(angle-Math.PI/6),clickY-headlen*Math.sin(angle-Math.PI/6));
       this.ctx.moveTo(clickX, clickY);
-      this.ctx.stroke(); 
+      this.ctx.lineTo(clickX-headlen*Math.cos(angle+Math.PI/6),clickY-headlen*Math.sin(angle+Math.PI/6));
+      this.ctx.stroke();
       clickCounter = 0;
+      //Añadiendo la relacion
+      console.log(`Relacion entre nodos ${posNodeIni} y nodo ${posNodeFin}`);
+      this.project_graph.nodes[posNodeIni].addRelation(this.project_graph.nodes[posNodeFin]);
     }
   }
 

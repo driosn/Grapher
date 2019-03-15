@@ -4,8 +4,10 @@ export class Node{
   public positionY: number;
   public quadrant: number;
   public relations: Array<Node>;
+  public visited: boolean;
 
   public constructor(val: number, posX: number, posY: number, canvas: any, ctx: CanvasRenderingContext2D){
+    this.visited = false;
     this.relations = new Array();
     this.value = val;
     this.positionX = posX;
