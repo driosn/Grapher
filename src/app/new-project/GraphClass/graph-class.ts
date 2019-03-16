@@ -1,6 +1,8 @@
 import { Node } from '../NodeClass/node-class';
 
 var travVal = 0;
+var resultX = 400;
+
 export default travVal;
 
 export class Graph{
@@ -18,7 +20,9 @@ export class Graph{
     nodo.visited = true;
     console.log(nodo);
     travVal++;
+    resultX += 40;
     this.drawNodeTravel(nodo.positionX, nodo.positionY , canvas, ctx);
+    this.drawNodeResult(nodo, resultX, 600, canvas, ctx);
     for(let i=0; i<nodo.relations.length; i++){
       var sig_nodo: Node = nodo.relations[i]; 
         if(!sig_nodo.visited){
@@ -61,6 +65,15 @@ export class Graph{
     ctx.fillStyle = "red";
     ctx.font = "bold 20px Arial";
     ctx.fillText(travVal.toString(), posX - 20, posY);
+  }
+
+  drawNodeResult(nodo: Node, posX: number, posY: number, canvas: any, ctx: CanvasRenderingContext2D){
+    canvas = document.getElementById('working-canvas');
+    ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "bold 20px Arial";
+    ctx.fillText(nodo.value.toString(), posX, posY);
   }
 
   drawArrowBetweenNode(canvas: any, ctx: CanvasRenderingContext2D, nodeA: Node, nodeB: Node){
