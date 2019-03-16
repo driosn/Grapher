@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Node } from './NodeClass/node-class';
 import { Graph } from './GraphClass/graph-class';
-import { discardPeriodicTasks } from '@angular/core/testing';
-import { setRootDomAdapter } from '@angular/platform-browser/src/dom/dom_adapter';
 
 var nodeVal;
 var relationVal: boolean;
@@ -66,6 +64,10 @@ export class NewProjectComponent implements OnInit {
       console.log('Inicio DFS');
       this.startDFS(this.project_graph);
     });
+    this.bfs_button.addEventListener('click', () => {
+      console.log('Inicio BFS');
+      this.startBFS(this.project_graph);
+    });
   }
 
   optionSelector(ev){
@@ -106,7 +108,14 @@ export class NewProjectComponent implements OnInit {
   }
 
   startDFS(mygraph: Graph){
-    this.project_graph.dfs(this.project_graph.nodes[0]);
+    let initial_node: number = parseInt(prompt(`In which node you want to start(number): `));
+    this.project_graph.dfs(this.project_graph.nodes[initial_node-1], this.canvas, this.ctx);
+
+  }
+
+  startBFS(myGraph: Graph){
+    let initial_node: number = parseInt(prompt('In which node you want to start(number): '));
+    this.project_graph.bfs(this.project_graph.nodes[initial_node-1], this.canvas, this.ctx);
   }
 
   setClicks(ev){

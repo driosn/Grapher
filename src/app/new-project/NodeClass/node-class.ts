@@ -15,15 +15,15 @@ export class Node{
     canvas = document.getElementById('working-canvas');
     ctx = canvas.getContext('2d');
     ctx.beginPath();
-    ctx.arc(posX, posY, 22.5, 0, 2*Math.PI, false);
+    ctx.arc(posX, posY, 32.5, 0, 2*Math.PI, false);
     ctx.lineWidth = 3;
     ctx.strokeStyle = '#FF0000';
     ctx.stroke();
-    ctx.fillStyle = "orange";
+    ctx.fillStyle = "white";
     ctx.fill();
     ctx.fillStyle = "blue";
-    ctx.font = "bold 16px Arial";
-    ctx.fillText(this.value.toString(), posX - 5, posY + 5);
+    ctx.font = "bold 20px Arial";
+    ctx.fillText(this.value.toString(), posX + 7, posY);
     this.setQuadrant(this.positionX, this.positionY);
   }
 
