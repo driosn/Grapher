@@ -4,11 +4,13 @@ export class Node{
   public positionY: number;
   public quadrant: number;
   public relations: Array<Node>;
+  public costs: Array<number>;
   public visited: boolean;
 
   public constructor(val: number, posX: number, posY: number, canvas: any, ctx: CanvasRenderingContext2D){
     this.visited = false;
     this.relations = new Array();
+    this.costs = new Array();
     this.value = val;
     this.positionX = posX;
     this.positionY = posY;
@@ -38,7 +40,8 @@ export class Node{
     this.relations.push(nodeToAdd);
   }
 
-
-  
+  addCost(costToAdd: number){
+    this.costs.push(costToAdd);
+  }
 
 }

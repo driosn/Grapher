@@ -4,6 +4,7 @@ import { Graph } from './GraphClass/graph-class';
 
 var nodeVal;
 var relationVal: boolean;
+var costOption: boolean;
 var clickCounter: number;
 var clickX: number;
 var clickY: number;
@@ -25,8 +26,11 @@ export class NewProjectComponent implements OnInit {
   ctx: CanvasRenderingContext2D;
   ur_button;
   dr_button;
+  urCost_button;
+  drCost_button;
   dfs_button;
   bfs_button;
+  dijkstra_button;
   project_graph: Graph;
 
   constructor() {
@@ -34,6 +38,7 @@ export class NewProjectComponent implements OnInit {
     posNodeFin = -1;
     nodeVal = 1;
     relationVal = true;
+    costOption = false;
     clickCounter = 0;
     clickX = 0;
     clickY = 0;
@@ -45,8 +50,11 @@ export class NewProjectComponent implements OnInit {
   ngOnInit() {
     this.ur_button = document.getElementById('ur-btn');
     this.dr_button = document.getElementById('dr-btn');
+    this.urCost_button = document.getElementById('ur-btn-cost');
+    this.drCost_button = document.getElementById('dr-btn-cost');
     this.dfs_button = document.getElementById('dfs-btn');
     this.bfs_button = document.getElementById('bfs-btn');
+    this.dijkstra_button = document.getElementById('dijkstra-btn');
     this.canvas = document.getElementById('working-canvas');
     this.ctx = this.canvas.getContext('2d');
     console.log(`Ancho del canvas ${this.canvas.width}`);
@@ -56,10 +64,20 @@ export class NewProjectComponent implements OnInit {
     });
     this.ur_button.addEventListener('click', (ev) => {
       this.addUndirectedRelation(ev);
+      costOption = false;
     });
     this.dr_button.addEventListener('click', (ev) => {
       this.addDirectedRelation(ev);
+      costOption = false;
     });
+    this.urCost_button.addEventListener('click', (ev) => {
+      this.addUndirectedRelation(ev);
+      costOption = true;
+    });
+    this.drCost_button.addEventListener('click', (ev) =>{
+      this.addDirectedRelation(ev);
+      costOption = true;
+  })
     this.dfs_button.addEventListener('click', () =>{
       console.log('Inicio DFS');
       this.startDFS(this.project_graph);
@@ -68,6 +86,10 @@ export class NewProjectComponent implements OnInit {
       console.log('Inicio BFS');
       this.startBFS(this.project_graph);
     });
+    this.dijkstra_button.addEventListener('click', () => {
+      console.log('Inicio Dijkstra');
+      this.startDijkstra(this.project_graph);
+    })
   }
 
   optionSelector(ev){
@@ -77,11 +99,11 @@ export class NewProjectComponent implements OnInit {
       if(relationVal){
         console.log(relationVal);
         this.setClicks(ev);
-        this.lineDrawer_DR();
+        this.lineDrawer_DR(costOption);
       }else{
         console.log(relationVal);
         this.setClicks(ev);
-        this.lineDrawer_UR();
+        this.lineDrawer_UR(costOption);
         console.log(`Relaciones`);
         console.log(this.project_graph.nodes[posNodeIni]);
         console.log(this.project_graph.nodes[posNodeFin]);
@@ -118,6 +140,12 @@ export class NewProjectComponent implements OnInit {
     this.project_graph.bfs(this.project_graph.nodes[initial_node-1], this.canvas, this.ctx);
   }
 
+  startDijkstra(myGraph: Graph){
+    let initial_node: number = parseInt(prompt('In which node you want to start(number): '));
+    let final_node: number = parseInt(prompt('In which node you want to finish(number): '));
+    this.project_graph.dijkstra(this.project_graph.nodes[initial_node-1], this.project_graph.nodes[final_node -1]);
+  }
+
   setClicks(ev){
     let clickQuadrant = this.evalateQuadrant(ev);
     let minPointDistance = 500;
@@ -139,7 +167,7 @@ export class NewProjectComponent implements OnInit {
     }
   }
   
-  lineDrawer_UR(){
+  lineDrawer_UR(drawNumber: boolean){
     if(clickCounter === 2){
       console.log(`El click counter es: ${clickCounter}`)
       console.log(`ClickX: ${clickX}, ClickY: ${clickY}, ClickX_ant: ${clickX_ant}, ClickY_ant: ${clickY_ant}`)
@@ -151,6 +179,19 @@ export class NewProjectComponent implements OnInit {
       this.ctx.moveTo(clickX_ant, clickY_ant);
       this.ctx.lineTo(clickX, clickY);
       this.ctx.stroke();
+      if(drawNumber){
+        let costValue = prompt('Enter the cost of the arist');
+        this.ctx.beginPath();
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "bold 20px Arial";
+        this.ctx.fillText(costValue.toString(), (clickX_ant + clickX)/2 - 10, (clickY_ant + clickY)/2 - 10);
+        // Añadiendo el costo
+        this.project_graph.nodes[posNodeIni].addCost(parseInt(costValue));
+        this.project_graph.nodes[posNodeFin].addCost(parseInt(costValue));
+      }else{
+        this.project_graph.nodes[posNodeIni].addCost(0);
+        this.project_graph.nodes[posNodeFin].addCost(0);
+      }
       clickCounter = 0;
       // Añadiendo la relacion
       console.log(`Relacion entre nodos ${posNodeIni} y nodo ${posNodeFin}`);
@@ -159,7 +200,7 @@ export class NewProjectComponent implements OnInit {
     }
   }
 
-  lineDrawer_DR(){
+  lineDrawer_DR(drawNumber: boolean){
     if(clickCounter === 2){
       this.canvas = document.getElementById('working-canvas');
       this.ctx = this.canvas.getContext('2d');
@@ -171,6 +212,17 @@ export class NewProjectComponent implements OnInit {
       this.ctx.moveTo(clickX, clickY);
       this.ctx.lineTo(clickX-headlen*Math.cos(angle+Math.PI/6),clickY-headlen*Math.sin(angle+Math.PI/6));
       this.ctx.stroke();
+      if(drawNumber){
+        let costValue = prompt('Enter the cost of the arist');
+        this.ctx.beginPath();
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "bold 20px Arial";
+        this.ctx.fillText(costValue.toString(), (clickX_ant + clickX)/2 - 10, (clickY_ant + clickY)/2 - 10);
+        // Añadiendo el costo
+        this.project_graph.nodes[posNodeIni].addCost(parseInt(costValue));
+      }else{
+        this.project_graph.nodes[posNodeIni].addCost(0);
+      }
       clickCounter = 0;
       //Añadiendo la relacion
       console.log(`Relacion entre nodos ${posNodeIni} y nodo ${posNodeFin}`);

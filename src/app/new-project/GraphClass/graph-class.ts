@@ -1,7 +1,10 @@
 import { Node } from '../NodeClass/node-class';
+import * as Collections from 'typescript-collections';
 
 var travVal = 0;
 var resultX = 400;
+const INF = 100000;
+var previo: Array <number> = new Array();
 
 export default travVal;
 
@@ -58,6 +61,74 @@ export class Graph{
     }
   }
 
+  dijkstra(initialNode: Node, finalNode: Node){
+    var inicial = initialNode.value - 1;
+    var distancia: Array <number> = new Array();
+    var visitado: Array <Boolean> = new Array();
+    var Q = new Collections.PriorityQueue();
+    var actual: any;
+    var peso: number;
+    var adyacente: number;
+    var indices: Array<number> = new Array();
+    var pesosArray: Array<number> = new Array();
+    var minimo = 100;
+    var borrar: number;
+    // Init Dijkstra
+    for(let i=0; i<this.nodes.length; i++){
+      distancia.push(INF);
+      visitado.push(false);
+      previo.push(-1);
+    }
+
+    Q.add(0);
+    pesosArray.push(0);
+    indices.push(this.nodes[inicial].value - 1);
+    distancia[inicial] = 0;
+    while(!Q.isEmpty()){
+      minimo = 1000;
+      for(let i=0; i<pesosArray.length; i++){
+        if(pesosArray[i] < minimo){
+          minimo = pesosArray[i];
+          actual = indices[i];
+          borrar = i;
+        }
+      }      
+      pesosArray.splice(borrar, 1);
+      indices.splice(borrar, 1);
+      Q.dequeue();
+      if(visitado[actual]) continue;
+      visitado[actual] = true;
+      var ady = this.nodes[actual];
+      for(let i=0; i<ady.relations.length; i++){
+        adyacente = ady.relations[i].value - 1;
+        peso = ady.costs[i];
+        if(!visitado[adyacente]){
+          if((distancia[actual] + peso) < distancia[adyacente]){
+            distancia[adyacente] = distancia[actual] + peso;
+            previo[adyacente] = actual;
+            Q.add(distancia[adyacente]);
+            pesosArray.push(distancia[adyacente]);
+            indices.push(this.nodes[adyacente].value -1)
+          }
+        }
+      }
+      console.log("----------------------");
+      console.log(`Distancia: ${distancia}`);
+      console.log(`Visitado: ${visitado}`);
+      console.log(`Previo: ${previo}`);
+    }
+    console.log(`Distancia minima: ${distancia[finalNode.value -1]}`);
+    this.printTravel(finalNode.value - 1);
+  }
+
+  printTravel(destino: number){
+    if(previo[destino] != -1){
+      this.printTravel(previo[destino]);
+    }
+    console.log(destino);
+  }
+ 
+
   drawNodeTravel(posX: number, posY: number, canvas: any, ctx: CanvasRenderingContext2D){
     canvas = document.getElementById('working-canvas');
     ctx = canvas.getContext('2d');
@@ -89,4 +160,6 @@ export class Graph{
     ctx.lineTo(nodeB.positionX-headlen*Math.cos(angle+Math.PI/6),nodeB.positionY-headlen*Math.sin(angle+Math.PI/6));
     ctx.stroke();
   }
+
+  
 }
