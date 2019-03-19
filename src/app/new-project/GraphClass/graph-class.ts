@@ -71,7 +71,7 @@ export class Graph{
     var adyacente: number;
     var indices: Array<number> = new Array();
     var pesosArray: Array<number> = new Array();
-    var minimo = 100;
+    var minimo = 1000;
     var borrar: number;
     // Init Dijkstra
     for(let i=0; i<this.nodes.length; i++){
