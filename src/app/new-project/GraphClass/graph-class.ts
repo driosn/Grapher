@@ -118,10 +118,12 @@ export class Graph{
       console.log(`Visitado: ${visitado}`);
       console.log(`Previo: ${previo}`);
     }
-    console.log(`Distancia minima: ${distancia[finalNode.value -1]}`);
+    console.log(`Distancia minima: ${distancia[finalNode.value - 1]}`);
     this.printTravel(finalNode.value - 1);
 
     this.drawDijkstra(canvas, ctx);
+    this.drawMinimumDistance(canvas, ctx, distancia[finalNode.value - 1]);
+    this.drawDijkstraTravel(canvas, ctx);
   }
 
   printTravel(destino: number){
@@ -137,8 +139,35 @@ export class Graph{
       this.drawArrowBetweenNode(canvas, ctx, this.nodes[dijkstra_results[i]], this.nodes[dijkstra_results[i+1]]);
     }
   }
- 
 
+  drawDijkstraTravel(canvas: any, ctx: CanvasRenderingContext2D){
+    var posX: number = 580;
+    const posY: number = 570;
+    this.drawText(canvas, ctx, 550, 530, "The Dijkstra travel is: ");
+    for(let i=0; i<dijkstra_results.length; i++){
+      this.drawText(canvas, ctx, posX, posY, (dijkstra_results[i]+1).toString());
+      posX += 30;
+    }
+  }
+
+  drawMinimumDistance(canvas: any, ctx: CanvasRenderingContext2D, distance: number){
+    canvas = document.getElementById('working-canvas');
+    ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "bold 20px Arial";
+    ctx.fillText(`The minimum distance is: ${distance}`, 550, 500);
+  }
+
+  drawText(canvas: any, ctx: CanvasRenderingContext2D, posX: number, posY: number, dijkstraResults: string){
+    canvas = document.getElementById('working-canvas');
+    ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "bold 20px Arial";
+    ctx.fillText(`${dijkstraResults} `, posX, posY);
+  }
+ 
   drawNodeTravel(posX: number, posY: number, canvas: any, ctx: CanvasRenderingContext2D){
     canvas = document.getElementById('working-canvas');
     ctx = canvas.getContext('2d');
