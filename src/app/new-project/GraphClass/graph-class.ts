@@ -5,6 +5,7 @@ var travVal = 0;
 var resultX = 400;
 const INF = 100000;
 var previo: Array <number> = new Array();
+var dijkstra_results: Array<number> = new Array();
 
 export default travVal;
 
@@ -61,7 +62,7 @@ export class Graph{
     }
   }
 
-  dijkstra(initialNode: Node, finalNode: Node){
+  dijkstra(initialNode: Node, finalNode: Node, canvas: any, ctx: CanvasRenderingContext2D){
     var inicial = initialNode.value - 1;
     var distancia: Array <number> = new Array();
     var visitado: Array <Boolean> = new Array();
@@ -119,6 +120,8 @@ export class Graph{
     }
     console.log(`Distancia minima: ${distancia[finalNode.value -1]}`);
     this.printTravel(finalNode.value - 1);
+
+    this.drawDijkstra(canvas, ctx);
   }
 
   printTravel(destino: number){
@@ -126,6 +129,13 @@ export class Graph{
       this.printTravel(previo[destino]);
     }
     console.log(destino);
+    dijkstra_results.push(destino);
+  }
+
+  drawDijkstra(canvas: any, ctx: CanvasRenderingContext2D){
+    for(let i=0; i<dijkstra_results.length-1; i++){
+      this.drawArrowBetweenNode(canvas, ctx, this.nodes[dijkstra_results[i]], this.nodes[dijkstra_results[i+1]]);
+    }
   }
  
 
