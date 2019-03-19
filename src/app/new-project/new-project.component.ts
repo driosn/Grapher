@@ -143,7 +143,7 @@ export class NewProjectComponent implements OnInit {
   startDijkstra(myGraph: Graph){
     let initial_node: number = parseInt(prompt('In which node you want to start(number): '));
     let final_node: number = parseInt(prompt('In which node you want to finish(number): '));
-    this.project_graph.dijkstra(this.project_graph.nodes[initial_node-1], this.project_graph.nodes[final_node -1]);
+    this.project_graph.dijkstra(this.project_graph.nodes[initial_node-1], this.project_graph.nodes[final_node -1], this.canvas, this.ctx);
   }
 
   setClicks(ev){
