@@ -73,6 +73,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
       this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
     });
     this.ur_button.addEventListener('click', (ev) => {
       this.node_button.style.backgroundColor = "transparent";
@@ -80,6 +83,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
       this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
       this.addUndirectedRelation(ev);
       costOption = false;
     });
@@ -89,6 +95,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "#1976D2";
       this.urCost_button.style.backgroundColor = "transparent";
       this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
       this.addDirectedRelation(ev);
       costOption = false;
     });
@@ -98,6 +107,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "#1976D2";
       this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
       this.addUndirectedRelation(ev);
       costOption = true;
     });
@@ -107,6 +119,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
       this.drCost_button.style.backgroundColor = "#1976D2";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
       this.addDirectedRelation(ev);
       costOption = true;
   })
@@ -115,6 +130,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
       this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "#1976D2";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
       console.log('Inicio DFS');
       this.startDFS(this.project_graph);
     });
@@ -123,6 +141,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
       this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "#1976D2";
+      this.dijkstra_button.style.backgroundColor = "transparent";
       console.log('Inicio BFS');
       this.startBFS(this.project_graph);
     });
@@ -131,6 +152,9 @@ export class NewProjectComponent implements OnInit {
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
       this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "#1976D2";
       console.log('Inicio Dijkstra');
       this.startDijkstra(this.project_graph);
     })
