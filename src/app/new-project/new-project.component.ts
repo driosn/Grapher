@@ -63,30 +63,58 @@ export class NewProjectComponent implements OnInit {
       this.optionSelector(ev);
     });
     this.ur_button.addEventListener('click', (ev) => {
+      this.ur_button.style.backgroundColor = "#1976D2";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
       this.addUndirectedRelation(ev);
       costOption = false;
     });
     this.dr_button.addEventListener('click', (ev) => {
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "#1976D2";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
       this.addDirectedRelation(ev);
       costOption = false;
     });
     this.urCost_button.addEventListener('click', (ev) => {
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "#1976D2";
+      this.drCost_button.style.backgroundColor = "transparent";
       this.addUndirectedRelation(ev);
       costOption = true;
     });
     this.drCost_button.addEventListener('click', (ev) =>{
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "#1976D2";
       this.addDirectedRelation(ev);
       costOption = true;
   })
     this.dfs_button.addEventListener('click', () =>{
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
       console.log('Inicio DFS');
       this.startDFS(this.project_graph);
     });
     this.bfs_button.addEventListener('click', () => {
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
       console.log('Inicio BFS');
       this.startBFS(this.project_graph);
     });
     this.dijkstra_button.addEventListener('click', () => {
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
       console.log('Inicio Dijkstra');
       this.startDijkstra(this.project_graph);
     })
