@@ -12,6 +12,7 @@ var clickX_ant: number;
 var clickY_ant: number;
 var posNodeIni: number;
 var posNodeFin: number;
+var isActive: boolean;
 
 @Component({
   selector: 'app-new-project',
@@ -21,9 +22,9 @@ var posNodeFin: number;
 
 export class NewProjectComponent implements OnInit {
 
-  isActive = true;
   canvas: any;
   ctx: CanvasRenderingContext2D;
+  node_button;
   ur_button;
   dr_button;
   urCost_button;
@@ -34,6 +35,7 @@ export class NewProjectComponent implements OnInit {
   project_graph: Graph;
 
   constructor() {
+    isActive = false;
     posNodeIni = -1;
     posNodeFin = -1;
     nodeVal = 1;
@@ -48,6 +50,7 @@ export class NewProjectComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.node_button = document.getElementById('add-node');
     this.ur_button = document.getElementById('ur-btn');
     this.dr_button = document.getElementById('dr-btn');
     this.urCost_button = document.getElementById('ur-btn-cost');
@@ -62,7 +65,17 @@ export class NewProjectComponent implements OnInit {
     this.canvas.addEventListener('click', (ev) => {
       this.optionSelector(ev);
     });
+    this.node_button.addEventListener('click', () => {
+      console.log('Add a node clicked');
+      if(!isActive) isActive = true;
+      this.node_button.style.backgroundColor = "#1976D2";
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
+    });
     this.ur_button.addEventListener('click', (ev) => {
+      this.node_button.style.backgroundColor = "transparent";
       this.ur_button.style.backgroundColor = "#1976D2";
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
@@ -71,6 +84,7 @@ export class NewProjectComponent implements OnInit {
       costOption = false;
     });
     this.dr_button.addEventListener('click', (ev) => {
+      this.node_button.style.backgroundColor = "transparent";
       this.ur_button.style.backgroundColor = "transparent";
       this.dr_button.style.backgroundColor = "#1976D2";
       this.urCost_button.style.backgroundColor = "transparent";
@@ -79,6 +93,7 @@ export class NewProjectComponent implements OnInit {
       costOption = false;
     });
     this.urCost_button.addEventListener('click', (ev) => {
+      this.node_button.style.backgroundColor = "transparent";
       this.ur_button.style.backgroundColor = "transparent";
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "#1976D2";
@@ -87,6 +102,7 @@ export class NewProjectComponent implements OnInit {
       costOption = true;
     });
     this.drCost_button.addEventListener('click', (ev) =>{
+      this.node_button.style.backgroundColor = "transparent";
       this.ur_button.style.backgroundColor = "transparent";
       this.dr_button.style.backgroundColor = "transparent";
       this.urCost_button.style.backgroundColor = "transparent";
@@ -122,7 +138,7 @@ export class NewProjectComponent implements OnInit {
 
   optionSelector(ev){
     console.log(relationVal);
-    if(this.isActive === true) this.newNode(ev);
+    if(isActive === true) this.newNode(ev);
     else{
       if(relationVal){
         console.log(relationVal);
@@ -148,12 +164,12 @@ export class NewProjectComponent implements OnInit {
   }
 
   addUndirectedRelation(ev){
-    if(this.isActive) this.isActive = !this.isActive;
+    if(isActive) isActive = !isActive;
     relationVal = false;
   }
 
   addDirectedRelation(ev){
-    if(this.isActive) this.isActive = !this.isActive;
+    if(isActive) isActive = !isActive;
     relationVal = true;
   }
 
