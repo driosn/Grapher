@@ -1,5 +1,6 @@
 import { Node } from '../NodeClass/node-class';
 import * as Collections from 'typescript-collections';
+import { ConditionalExpr } from '@angular/compiler';
 
 var travVal = 0;
 var resultX = 400;
@@ -126,6 +127,33 @@ export class Graph{
     this.drawDijkstraTravel(canvas, ctx);
   }
 
+  floydWarshall(){
+    const INF: Number = 999999;
+    var distances = [];
+    var travel = [];
+    var iterator: number = 1;
+    var row_controller = new Array<Number>();
+    var toShow: String = "";
+    for(let i=0; i<this.nodes.length; i++){
+      for(let j=0; j<this.nodes.length; j++){
+        row_controller.push(iterator);
+        iterator++;
+      }
+      distances.push(row_controller);
+      row_controller = [];
+      
+    }
+    var toShow: String  = "";
+    for(let i=0; i<this.nodes.length; i++){
+      for(let j=0; j<this.nodes.length; j++){
+        toShow += distances[i][j].toString() + " ";
+      }
+      console.log(toShow);
+      toShow = "";
+    }
+
+  }
+
   printTravel(destino: number){
     if(previo[destino] != -1){
       this.printTravel(previo[destino]);
@@ -143,7 +171,7 @@ export class Graph{
   drawDijkstraTravel(canvas: any, ctx: CanvasRenderingContext2D){
     var posX: number = 580;
     const posY: number = 570;
-    this.drawText(canvas, ctx, 550, 530, "The Dijkstra travel is: ");
+    this.drawText(canvas, ctx, 550, 530, "El recorrido es el siguiente: ");
     for(let i=0; i<dijkstra_results.length; i++){
       this.drawText(canvas, ctx, posX, posY, (dijkstra_results[i]+1).toString());
       posX += 30;
@@ -156,7 +184,7 @@ export class Graph{
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.font = "bold 20px Arial";
-    ctx.fillText(`The minimum distance is: ${distance}`, 550, 500);
+    ctx.fillText(`La distancia minima es: ${distance}`, 550, 500);
   }
 
   drawText(canvas: any, ctx: CanvasRenderingContext2D, posX: number, posY: number, dijkstraResults: string){
