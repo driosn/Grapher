@@ -129,29 +129,128 @@ export class Graph{
 
   floydWarshall(){
     const INF: Number = 999999;
+    const NULL: Number = 0;
     var distances = [];
     var travel = [];
-    var iterator: number = 1;
     var row_controller = new Array<Number>();
     var toShow: String = "";
+    //Inicialización de matriz de distancias
     for(let i=0; i<this.nodes.length; i++){
       for(let j=0; j<this.nodes.length; j++){
-        row_controller.push(iterator);
-        iterator++;
+        row_controller.push(INF);
       }
       distances.push(row_controller);
       row_controller = [];
-      
     }
-    var toShow: String  = "";
+    //Inicialización de matriz de recorridos
     for(let i=0; i<this.nodes.length; i++){
       for(let j=0; j<this.nodes.length; j++){
-        toShow += distances[i][j].toString() + " ";
+        if(i === j) row_controller.push(NULL);
+        else row_controller.push(j+1);  
+      }
+      travel.push(row_controller);
+      row_controller = [];
+    }
+    //Llenado de matriz de distancias
+    console.log(this.nodes);
+    for(let i=0; i<this.nodes.length; i++){
+      for(let j=0; j<this.nodes[i].relations.length; j++){
+        distances[i][this.nodes[i].relations[j].value - 1] = this.nodes[i].costs[j];
+      }
+    }
+    console.log("Matriz de distancias: ");
+    this.printMatrixDistances(distances, this.nodes.length);
+    console.log("Matriz de recorridos: ");
+    this.printMatrixTravel(travel, this.nodes.length);
+
+    for(let k=0; k<this.nodes.length; k++){
+      for(let i=0; i<this.nodes.length; i++){
+        for(let j=0; j<this.nodes.length; j++){
+          if(distances[i][k] + distances[k][j] < distances[i][j]){
+            if(i !== j){
+              distances[i][j] = distances[i][k] + distances[k][j];
+              travel[i][j] = k+1;
+            }
+          } 
+        }
+      }
+      console.log(`ITERACION ${k+1}`);
+      console.log("Matriz distancias");
+      this.printMatrixDistances(distances, this.nodes.length)
+      console.log("Matriz Recorridos: ");
+      this.printMatrixTravel(travel, this.nodes.length);
+    }
+
+    var initialNode = parseInt(prompt("Inserte el nodo Inicial: "));
+    var finalNode = parseInt(prompt("Inserte el nodo final: "));
+    var sortedArray = this.bubbleSort(this.warshallTravelArray(initialNode - 1, finalNode -1, travel));
+    console.log(sortedArray);
+
+  }
+
+  warshallTravelArray(startNode: number, finishNode: number, travMatrix: any){
+    var warshall_travel = new Array<number>();
+    console.log(`Finish node+1 ${finishNode+1}`);
+    console.log((`TravMatrix[startNode][finishNode]: ${travMatrix[startNode][finishNode]}`))  ;
+    if(finishNode+1 !== travMatrix[startNode][finishNode]){
+      warshall_travel.push(travMatrix[startNode][finishNode]);
+      this.warshallTravelArray(startNode + 1 , travMatrix[startNode][finishNode], travMatrix);
+    }
+    else{
+      console.log(warshall_travel);
+      return warshall_travel;
+    }
+  }
+
+  bubbleSort(arrayToSort: any){
+    var auxiliar;
+    for(let k=1; k<arrayToSort.length - 1; k++){
+      var flag = 0;
+      for(let i=0; i<arrayToSort.length - k - 1; i++){
+        if(arrayToSort[i] > arrayToSort[i+1]){
+          auxiliar = arrayToSort[i+1];
+          arrayToSort = arrayToSort[i];
+          arrayToSort[i] = auxiliar;
+          flag = 1;
+        }
+      }
+      if(flag === 0) break;
+    }
+    return arrayToSort;
+  }
+
+  printMatrixDistances(matrix: any, length: number){
+    var toShow: String  = "  ";
+    for(let i=1; i<=length; i++){
+      toShow += i.toString() + "          ";
+    }
+    console.log(toShow);
+    toShow = "";
+    for(let i=0; i<length; i++){
+      toShow += (i+1).toString() + " ";
+      for(let j=0; j<length; j++){
+        toShow += matrix[i][j].toString() + "        ";
       }
       console.log(toShow);
       toShow = "";
     }
+  }
 
+  printMatrixTravel(matrix: any, length: number){
+    var toShow: String  = "  ";
+    for(let i=1; i<=length; i++){
+      toShow += i.toString() + "          ";
+    }
+    console.log(toShow);
+    toShow = "";
+    for(let i=0; i<length; i++){
+      toShow += (i+1).toString() + " ";
+      for(let j=0; j<length; j++){
+        toShow += matrix[i][j].toString() + "          ";
+      }
+      console.log(toShow);
+      toShow = "";
+    }
   }
 
   printTravel(destino: number){
