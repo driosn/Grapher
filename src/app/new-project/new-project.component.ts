@@ -33,6 +33,7 @@ export class NewProjectComponent implements OnInit {
   bfs_button;
   dijkstra_button;
   warshall_button;
+  prim_button;
   project_graph: Graph;
 
   constructor() {
@@ -60,6 +61,7 @@ export class NewProjectComponent implements OnInit {
     this.bfs_button = document.getElementById('bfs-btn');
     this.dijkstra_button = document.getElementById('dijkstra-btn');
     this.warshall_button = document.getElementById('warshall-btn');
+    this.prim_button = document.getElementById('prim-btn');
     this.canvas = document.getElementById('working-canvas');
     this.ctx = this.canvas.getContext('2d');
     console.log(`Ancho del canvas ${this.canvas.width}`);
@@ -172,6 +174,19 @@ export class NewProjectComponent implements OnInit {
       console.log('Inicio Floyd Warshall');
       this.startWarshall(this.project_graph);
     });
+    this.prim_button.addEventListener('click', () => {
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
+      this.warshall_button.style.backgroundColor = "transparent";
+      this.prim_button.style.backgroundColor = "#1976D2";
+      console.log('Inicio Algoritmo Prim');
+      this.startPrim(this.project_graph);
+    });
   }
 
   optionSelector(ev){
@@ -229,7 +244,11 @@ export class NewProjectComponent implements OnInit {
   }
 
   startWarshall(myGraph: Graph){
-    this.project_graph.floydWarshall();
+    this.project_graph.floydWarshall(this.canvas, this.ctx);
+  }
+
+  startPrim(myGraph: Graph){
+    this.project_graph.prim(this.canvas, this.ctx);
   }
 
   setClicks(ev){

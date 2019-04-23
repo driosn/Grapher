@@ -1,24 +1,30 @@
 import { Node } from '../NodeClass/node-class';
 import * as Collections from 'typescript-collections';
-import { ConditionalExpr } from '@angular/compiler';
 
 var travVal = 0;
 var resultX = 400;
 const INF = 100000;
 var previo: Array <number> = new Array();
 var dijkstra_results: Array<number> = new Array();
+var warshall_travel: Array<number> = new Array();
 
 export default travVal;
 
 export class Graph{
   public nodes: Array<Node>;
+  public reached: Array<Node>;
+  public unreached: Array<Node>;
+
 
   constructor(){
     this.nodes = new Array();
+    this.reached = new Array();
+    this.unreached = new Array();
   }
 
   addNode(newNode: Node){
     this.nodes.push(newNode);
+    this.unreached.push(newNode);
   }
 
   dfs(nodo: Node, canvas: any, ctx: CanvasRenderingContext2D){
@@ -127,7 +133,7 @@ export class Graph{
     this.drawDijkstraTravel(canvas, ctx);
   }
 
-  floydWarshall(){
+  floydWarshall(canvas: any, ctx: CanvasRenderingContext2D){
     const INF: Number = 999999;
     const NULL: Number = 0;
     var distances = [];
@@ -180,44 +186,93 @@ export class Graph{
       console.log("Matriz Recorridos: ");
       this.printMatrixTravel(travel, this.nodes.length);
     }
-
-    var initialNode = parseInt(prompt("Inserte el nodo Inicial: "));
-    var finalNode = parseInt(prompt("Inserte el nodo final: "));
-    var sortedArray = this.bubbleSort(this.warshallTravelArray(initialNode - 1, finalNode -1, travel));
-    console.log(sortedArray);
-
+    var startNode = parseInt(prompt("Ingrese el nodo inicial"));
+    var finishNode = parseInt(prompt("Ingrese el nodo final"));
+    this.createWarshallTravelArray(travel, startNode - 1, finishNode - 1);
+    console.log(warshall_travel);
+    //console.log(startNode - 1);
+    //console.log(finishNode - 1);
+    // console.log(travel[startNode - 1][finishNode - 1]);
+    warshall_travel.sort();
+    console.log(warshall_travel);
+    this.drawWarshall(canvas, ctx);
+    this.drawWarshallTravel(canvas, ctx);
+    this.drawTravelMatrix(canvas, ctx, travel);
+    this.drawDistancesMatrix(canvas, ctx, distances);
   }
 
-  warshallTravelArray(startNode: number, finishNode: number, travMatrix: any){
-    var warshall_travel = new Array<number>();
-    console.log(`Finish node+1 ${finishNode+1}`);
-    console.log((`TravMatrix[startNode][finishNode]: ${travMatrix[startNode][finishNode]}`))  ;
-    if(finishNode+1 !== travMatrix[startNode][finishNode]){
-      warshall_travel.push(travMatrix[startNode][finishNode]);
-      this.warshallTravelArray(startNode + 1 , travMatrix[startNode][finishNode], travMatrix);
+  prim(canvas: any, ctx: CanvasRenderingContext2D){
+    //Creacion de las distancias entre todos los nodos
+    const INF: Number = 999999;
+    const NULL: Number = 0;
+    var distances = [];
+    var travel = [];
+    var row_controller = new Array<Number>();
+    var toShow: String = "";
+    //Inicialización de matriz de distancias
+    for(let i=0; i<this.nodes.length; i++){
+      for(let j=0; j<this.nodes.length; j++){
+        row_controller.push(INF);
+      }
+      distances.push(row_controller);
+      row_controller = [];
     }
-    else{
-      console.log(warshall_travel);
-      return warshall_travel;
+    //Inicialización de matriz de recorridos
+    for(let i=0; i<this.nodes.length; i++){
+      for(let j=0; j<this.nodes.length; j++){
+        if(i === j) row_controller.push(NULL);
+        else row_controller.push(j+1);  
+      }
+      travel.push(row_controller);
+      row_controller = [];
     }
-  }
+    //Llenado de matriz de distancias
+    console.log(this.nodes);
+    for(let i=0; i<this.nodes.length; i++){
+      for(let j=0; j<this.nodes[i].relations.length; j++){
+        distances[i][this.nodes[i].relations[j].value - 1] = this.nodes[i].costs[j];
+      }
+    }
+    
+    //Algoritmo de Prim
+    this.reached.push(this.unreached[0]);
+    this.unreached.splice(0, 1);
 
-  bubbleSort(arrayToSort: any){
-    var auxiliar;
-    for(let k=1; k<arrayToSort.length - 1; k++){
-      var flag = 0;
-      for(let i=0; i<arrayToSort.length - k - 1; i++){
-        if(arrayToSort[i] > arrayToSort[i+1]){
-          auxiliar = arrayToSort[i+1];
-          arrayToSort = arrayToSort[i];
-          arrayToSort[i] = auxiliar;
-          flag = 1;
+    while(this.unreached.length > 0){
+      var record = 1000000;
+      var rIndex;
+      var uIndex;
+      for(let i=0; i<this.reached.length; i++){
+        for(let j=0; j<this.unreached.length; j++){
+          var d = distances[this.reached[i].value -1 ][this.unreached[j].value -1]; 
+          if(d < record){
+            record = d;
+            rIndex = i;
+            uIndex = j;
+          } 
         }
       }
-      if(flag === 0) break;
+      
+      this.drawArrowBetweenNode(canvas, ctx, this.reached[rIndex], this.unreached[uIndex]);
+      this.reached.push(this.unreached[uIndex]);
+      this.unreached.splice(uIndex, 1);
+
     }
-    return arrayToSort;
+
   }
+
+  createWarshallTravelArray(travelDistances: any, initialNode: any, finalNode: any){
+    var aux = travelDistances[initialNode][finalNode];
+    warshall_travel.push(initialNode + 1);
+    warshall_travel.push(finalNode + 1);  
+    while(aux !== finalNode + 1){
+      console.log(aux);
+      warshall_travel.push(aux);
+      finalNode = travelDistances[initialNode][finalNode] - 1;
+      aux = travelDistances[initialNode][finalNode];
+    }
+  }
+
 
   printMatrixDistances(matrix: any, length: number){
     var toShow: String  = "  ";
@@ -267,6 +322,13 @@ export class Graph{
     }
   }
 
+  drawWarshall(canvas: any, ctx: CanvasRenderingContext2D){
+    for(let i=0; i<warshall_travel.length-1; i++){
+      this.drawArrowBetweenNode(canvas, ctx, this.nodes[warshall_travel[i] - 1], this.nodes[warshall_travel[i + 1] - 1]);
+    }
+  }
+
+
   drawDijkstraTravel(canvas: any, ctx: CanvasRenderingContext2D){
     var posX: number = 580;
     const posY: number = 570;
@@ -274,6 +336,66 @@ export class Graph{
     for(let i=0; i<dijkstra_results.length; i++){
       this.drawText(canvas, ctx, posX, posY, (dijkstra_results[i]+1).toString());
       posX += 30;
+    }
+  }
+
+  drawDistancesMatrix(canvas: any, ctx: CanvasRenderingContext2D, distances: any){
+    var posX: number = 380;
+    var posY: number = 470;
+    this.drawText(canvas, ctx, 365, 430, "Matriz de distancias: ");
+    for(let i=1; i<=this.nodes.length; i++){
+      this.drawTextWithColor(canvas, ctx, posX, posY, i.toString(), "blue");
+      posX += 40;
+    }
+    posY += 40;
+    posX = 380;
+    for(let i=0; i<this.nodes.length; i++){
+      this.drawTextWithColor(canvas, ctx, posX - 40, posY, (i+1).toString(), "blue")
+      for(let j=0; j<this.nodes.length; j++){
+        if(distances[i][j] === 999999){
+          this.drawText(canvas, ctx, posX, posY, "0");
+        }else{
+          this.drawText(canvas, ctx, posX, posY, distances[i][j].toString());
+        }
+        posX += 40;
+      }
+      posX = 380;
+      posY += 40;
+    }
+  }
+
+  drawTravelMatrix(canvas: any, ctx: CanvasRenderingContext2D, travel: any){
+    var posX: number = 680;
+    var posY: number = 470;
+    this.drawText(canvas, ctx, 665, 430, "Matriz de recorridos: ");
+    for(let i=1; i<=this.nodes.length; i++){
+      this.drawTextWithColor(canvas, ctx, posX, posY, i.toString(), "blue");
+      posX += 40;
+    }
+    posY += 40;
+    posX = 680;
+    for(let i=0; i<this.nodes.length; i++){
+      this.drawTextWithColor(canvas, ctx, posX - 40, posY, (i+1).toString(), "blue")
+      for(let j=0; j<this.nodes.length; j++){
+        if(travel[i][j] === 0){
+          this.drawText(canvas, ctx, posX, posY, "-");
+        }else{
+          this.drawText(canvas, ctx, posX, posY, travel[i][j].toString());
+        }
+        posX += 40;
+      }
+      posX = 680;
+      posY += 40;
+    }
+  }
+
+  drawWarshallTravel(canvas: any, ctx: CanvasRenderingContext2D){
+    var posX = 100;
+    var posY = 550;
+    this.drawTextWithColor(canvas, ctx, posX, posY, "Recorrido Mínimo: ", "blue");
+    for(let i=0; i<warshall_travel.length; i++){
+      posX += 20;
+      this.drawText(canvas, ctx, posX, posY + 40, warshall_travel[i].toString());
     }
   }
 
@@ -293,6 +415,15 @@ export class Graph{
     ctx.fillStyle = "black";
     ctx.font = "bold 20px Arial";
     ctx.fillText(`${dijkstraResults} `, posX, posY);
+  }
+
+  drawTextWithColor(canvas: any, ctx: CanvasRenderingContext2D, posX: number, posY: number, text: string, color: string){
+    canvas = document.getElementById('working-canvas');
+    ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.fillStyle = color;
+    ctx.font = "bold 20px Arial";
+    ctx.fillText(`${text} `, posX, posY);
   }
  
   drawNodeTravel(posX: number, posY: number, canvas: any, ctx: CanvasRenderingContext2D){
@@ -325,7 +456,5 @@ export class Graph{
     ctx.moveTo(nodeB.positionX, nodeB.positionY);
     ctx.lineTo(nodeB.positionX-headlen*Math.cos(angle+Math.PI/6),nodeB.positionY-headlen*Math.sin(angle+Math.PI/6));
     ctx.stroke();
-  }
-
-  
+  } 
 }
