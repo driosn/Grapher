@@ -266,7 +266,6 @@ export class NewProjectComponent implements OnInit {
     this.simpleLineDrawer_UR(this.project_graph.nodes[1].positionX, this.project_graph.nodes[1].positionY, this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY);
     this.simpleLineDrawer_UR(this.project_graph.nodes[2].positionX, this.project_graph.nodes[2].positionY, this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY);
     this.simpleLineDrawer_UR(this.project_graph.nodes[2].positionX, this.project_graph.nodes[2].positionY, this.project_graph.nodes[5].positionX, this.project_graph.nodes[5].positionY);
-    this.simpleLineDrawer_UR(this.project_graph.nodes[2].positionX, this.project_graph.nodes[2].positionY, this.project_graph.nodes[7].positionX, this.project_graph.nodes[7].positionY);
     this.simpleLineDrawer_UR(this.project_graph.nodes[3].positionX, this.project_graph.nodes[3].positionY, this.project_graph.nodes[6].positionX, this.project_graph.nodes[6].positionY);
     this.simpleLineDrawer_UR(this.project_graph.nodes[3].positionX, this.project_graph.nodes[3].positionY, this.project_graph.nodes[8].positionX, this.project_graph.nodes[8].positionY);
     this.simpleLineDrawer_UR(this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY, this.project_graph.nodes[6].positionX, this.project_graph.nodes[6].positionY);
@@ -289,7 +288,39 @@ export class NewProjectComponent implements OnInit {
     this.simpleLineDrawer_UR(this.project_graph.nodes[12].positionX, this.project_graph.nodes[12].positionY, this.project_graph.nodes[13].positionX, this.project_graph.nodes[13].positionY);
     this.simpleLineDrawer_UR(this.project_graph.nodes[13].positionX, this.project_graph.nodes[13].positionY, this.project_graph.nodes[14].positionX, this.project_graph.nodes[14].positionY);
 
-    this.project_graph.drawText(this.canvas, this.ctx, this.project_graph.nodes[0].positionX+this.project_graph.nodes[1].positionX/2, this.project_graph.nodes[0].positionY, "1");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[0].positionX+this.project_graph.nodes[1].positionX)/2, (this.project_graph.nodes[0].positionY+this.project_graph.nodes[1].positionY)/2 - 10, "8");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[0].positionX+this.project_graph.nodes[4].positionX)/2, (this.project_graph.nodes[0].positionY+this.project_graph.nodes[4].positionY)/2 - 10, "10");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[0].positionX+this.project_graph.nodes[2].positionX)/2, (this.project_graph.nodes[0].positionY+this.project_graph.nodes[2].positionY)/2 - 10, "17");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[1].positionX+this.project_graph.nodes[3].positionX)/2, (this.project_graph.nodes[1].positionY+this.project_graph.nodes[3].positionY)/2 - 10, "6");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[1].positionX+this.project_graph.nodes[6].positionX)/2, (this.project_graph.nodes[1].positionY+this.project_graph.nodes[6].positionY)/2 - 10, "11");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[1].positionX+this.project_graph.nodes[4].positionX)/2, (this.project_graph.nodes[1].positionY+this.project_graph.nodes[4].positionY)/2 - 10, "12");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[2].positionX+this.project_graph.nodes[4].positionX)/2, (this.project_graph.nodes[2].positionY+this.project_graph.nodes[4].positionY)/2 - 10, "6");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[2].positionX+this.project_graph.nodes[5].positionX)/2, (this.project_graph.nodes[2].positionY+this.project_graph.nodes[5].positionY)/2 - 10, "8");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[3].positionX+this.project_graph.nodes[6].positionX)/2, (this.project_graph.nodes[3].positionY+this.project_graph.nodes[6].positionY)/2 - 10, "9");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[3].positionX+this.project_graph.nodes[8].positionX)/2, (this.project_graph.nodes[3].positionY+this.project_graph.nodes[8].positionY)/2 - 10, "12");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[4].positionX+this.project_graph.nodes[6].positionX)/2, (this.project_graph.nodes[4].positionY+this.project_graph.nodes[6].positionY)/2 - 10, "9");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[4].positionX+this.project_graph.nodes[10].positionX)/2, (this.project_graph.nodes[4].positionY+this.project_graph.nodes[10].positionY)/2 - 10, "25");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[4].positionX+this.project_graph.nodes[7].positionX)/2, (this.project_graph.nodes[4].positionY+this.project_graph.nodes[7].positionY)/2 - 10, "21");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[5].positionX+this.project_graph.nodes[7].positionX)/2, (this.project_graph.nodes[5].positionY+this.project_graph.nodes[7].positionY)/2 - 10, "10");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[5].positionX+this.project_graph.nodes[11].positionX)/2, (this.project_graph.nodes[5].positionY+this.project_graph.nodes[11].positionY)/2 - 10, "1");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[6].positionX+this.project_graph.nodes[8].positionX)/2, (this.project_graph.nodes[6].positionY+this.project_graph.nodes[8].positionY)/2 - 10, "10");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[6].positionX+this.project_graph.nodes[9].positionX)/2, (this.project_graph.nodes[6].positionY+this.project_graph.nodes[9].positionY)/2 - 10, "15");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[7].positionX+this.project_graph.nodes[10].positionX)/2, (this.project_graph.nodes[7].positionY+this.project_graph.nodes[10].positionY)/2 - 10, "4");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[7].positionX+this.project_graph.nodes[11].positionX)/2, (this.project_graph.nodes[7].positionY+this.project_graph.nodes[11].positionY)/2 - 10, "5");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[8].positionX+this.project_graph.nodes[9].positionX)/2, (this.project_graph.nodes[8].positionY+this.project_graph.nodes[9].positionY)/2 - 10, "8");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[8].positionX+this.project_graph.nodes[12].positionX)/2, (this.project_graph.nodes[8].positionY+this.project_graph.nodes[12].positionY)/2 - 10, "13");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[9].positionX+this.project_graph.nodes[12].positionX)/2, (this.project_graph.nodes[9].positionY+this.project_graph.nodes[12].positionY)/2 - 10, "5");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[9].positionX+this.project_graph.nodes[13].positionX)/2, (this.project_graph.nodes[9].positionY+this.project_graph.nodes[13].positionY)/2 - 10, "10");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[9].positionX+this.project_graph.nodes[10].positionX)/2, (this.project_graph.nodes[9].positionY+this.project_graph.nodes[10].positionY)/2 - 10, "6");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[10].positionX+this.project_graph.nodes[14].positionX)/2, (this.project_graph.nodes[10].positionY+this.project_graph.nodes[14].positionY)/2 - 10, "2");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[11].positionX+this.project_graph.nodes[14].positionX)/2, (this.project_graph.nodes[11].positionY+this.project_graph.nodes[14].positionY)/2 - 10, "12");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[12].positionX+this.project_graph.nodes[13].positionX)/2, (this.project_graph.nodes[12].positionY+this.project_graph.nodes[13].positionY)/2 - 10, "8");
+    this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[13].positionX+this.project_graph.nodes[14].positionX)/2, (this.project_graph.nodes[13].positionY+this.project_graph.nodes[14].positionY)/2 - 10, "7");
+
+
+
+    
+
 
 
     console.log(this.canvas.height);
