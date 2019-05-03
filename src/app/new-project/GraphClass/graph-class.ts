@@ -409,13 +409,13 @@ export class Graph{
     ctx.fillText(`La distancia minima es: ${distance}`, 550, 500);
   }
 
-  drawText(canvas: any, ctx: CanvasRenderingContext2D, posX: number, posY: number, dijkstraResults: string){
+  drawText(canvas: any, ctx: CanvasRenderingContext2D, posX: number, posY: number, myText: string){
     canvas = document.getElementById('working-canvas');
     ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.font = "bold 20px Arial";
-    ctx.fillText(`${dijkstraResults} `, posX, posY);
+    ctx.fillText(`${myText} `, posX, posY);
   }
 
   drawTextWithColor(canvas: any, ctx: CanvasRenderingContext2D, posX: number, posY: number, text: string, color: string){

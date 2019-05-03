@@ -242,22 +242,56 @@ export class NewProjectComponent implements OnInit {
   }
 
   simpsonsExample(){
-    this.createNodeForSimpsonsExample(100, this.canvas.height/2);
-    this.createNodeForSimpsonsExample(220, 200);
-    this.createNodeForSimpsonsExample(220, 500);
-    this.createNodeForSimpsonsExample(340, 100);
-    this.createNodeForSimpsonsExample(340, this.canvas.height/2);
-    this.createNodeForSimpsonsExample(340, 600);
-    this.createNodeForSimpsonsExample(460, 200);
-    this.createNodeForSimpsonsExample(460, 500);
-    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
-    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
-    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
-    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
-    // this.createNodeForSimpsonsExample(100, this.canvas.height/2);
-    // this.createNodeForSimpsonsExample(100, this.canvas.height/2);
-    // this.createNodeForSimpsonsExample(100, this.canvas.height/2);
-    // console.log(this.project_graph);
+    this.createNodeForSimpsonsExample(100, this.canvas.height/2); //1
+    this.createNodeForSimpsonsExample(220, 200); //2
+    this.createNodeForSimpsonsExample(220, 500); //3
+    this.createNodeForSimpsonsExample(340, 100); //4
+    this.createNodeForSimpsonsExample(340, this.canvas.height/2); //5
+    this.createNodeForSimpsonsExample(340, 600); //6
+    this.createNodeForSimpsonsExample(460, 200); //7
+    this.createNodeForSimpsonsExample(460, 500); //8
+    this.createNodeForSimpsonsExample(580, 100); //9
+    this.createNodeForSimpsonsExample(640, 200); //10
+    this.createNodeForSimpsonsExample(610, 400); //11
+    this.createNodeForSimpsonsExample(610, 550); //12
+    this.createNodeForSimpsonsExample(750, 100); //13
+    this.createNodeForSimpsonsExample(800, this.canvas.height/2); //14
+    this.createNodeForSimpsonsExample(750, 550); //15
+
+    this.simpleLineDrawer_UR(this.project_graph.nodes[0].positionX, this.project_graph.nodes[0].positionY, this.project_graph.nodes[1].positionX, this.project_graph.nodes[1].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[0].positionX, this.project_graph.nodes[0].positionY, this.project_graph.nodes[2].positionX, this.project_graph.nodes[2].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[0].positionX, this.project_graph.nodes[0].positionY, this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[1].positionX, this.project_graph.nodes[1].positionY, this.project_graph.nodes[3].positionX, this.project_graph.nodes[3].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[1].positionX, this.project_graph.nodes[1].positionY, this.project_graph.nodes[6].positionX, this.project_graph.nodes[6].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[1].positionX, this.project_graph.nodes[1].positionY, this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[2].positionX, this.project_graph.nodes[2].positionY, this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[2].positionX, this.project_graph.nodes[2].positionY, this.project_graph.nodes[5].positionX, this.project_graph.nodes[5].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[2].positionX, this.project_graph.nodes[2].positionY, this.project_graph.nodes[7].positionX, this.project_graph.nodes[7].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[3].positionX, this.project_graph.nodes[3].positionY, this.project_graph.nodes[6].positionX, this.project_graph.nodes[6].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[3].positionX, this.project_graph.nodes[3].positionY, this.project_graph.nodes[8].positionX, this.project_graph.nodes[8].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY, this.project_graph.nodes[6].positionX, this.project_graph.nodes[6].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY, this.project_graph.nodes[10].positionX, this.project_graph.nodes[10].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[4].positionX, this.project_graph.nodes[4].positionY, this.project_graph.nodes[7].positionX, this.project_graph.nodes[7].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[5].positionX, this.project_graph.nodes[5].positionY, this.project_graph.nodes[7].positionX, this.project_graph.nodes[7].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[5].positionX, this.project_graph.nodes[5].positionY, this.project_graph.nodes[11].positionX, this.project_graph.nodes[11].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[6].positionX, this.project_graph.nodes[6].positionY, this.project_graph.nodes[8].positionX, this.project_graph.nodes[8].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[6].positionX, this.project_graph.nodes[6].positionY, this.project_graph.nodes[9].positionX, this.project_graph.nodes[9].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[7].positionX, this.project_graph.nodes[7].positionY, this.project_graph.nodes[10].positionX, this.project_graph.nodes[10].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[7].positionX, this.project_graph.nodes[7].positionY, this.project_graph.nodes[11].positionX, this.project_graph.nodes[11].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[8].positionX, this.project_graph.nodes[8].positionY, this.project_graph.nodes[9].positionX, this.project_graph.nodes[9].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[8].positionX, this.project_graph.nodes[8].positionY, this.project_graph.nodes[12].positionX, this.project_graph.nodes[12].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[9].positionX, this.project_graph.nodes[9].positionY, this.project_graph.nodes[10].positionX, this.project_graph.nodes[10].positionY); 
+    this.simpleLineDrawer_UR(this.project_graph.nodes[9].positionX, this.project_graph.nodes[9].positionY, this.project_graph.nodes[12].positionX, this.project_graph.nodes[12].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[9].positionX, this.project_graph.nodes[9].positionY, this.project_graph.nodes[13].positionX, this.project_graph.nodes[13].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[10].positionX, this.project_graph.nodes[10].positionY, this.project_graph.nodes[14].positionX, this.project_graph.nodes[14].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[8].positionX, this.project_graph.nodes[8].positionY, this.project_graph.nodes[12].positionX, this.project_graph.nodes[12].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[11].positionX, this.project_graph.nodes[11].positionY, this.project_graph.nodes[14].positionX, this.project_graph.nodes[14].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[12].positionX, this.project_graph.nodes[12].positionY, this.project_graph.nodes[13].positionX, this.project_graph.nodes[13].positionY);
+    this.simpleLineDrawer_UR(this.project_graph.nodes[13].positionX, this.project_graph.nodes[13].positionY, this.project_graph.nodes[14].positionX, this.project_graph.nodes[14].positionY);
+
+    this.project_graph.drawText(this.canvas, this.ctx, this.project_graph.nodes[0].positionX+this.project_graph.nodes[1].positionX/2, this.project_graph.nodes[0].positionY, "1");
+
+
     console.log(this.canvas.height);
     console.log(this.canvas.width);
   }
@@ -324,6 +358,17 @@ export class NewProjectComponent implements OnInit {
         }
       }
     }
+  }
+
+  simpleLineDrawer_UR(posX_initial, posY_initial, posX_final, posY_final){
+    this.canvas = document.getElementById('working-canvas');
+      this.ctx = this.canvas.getContext('2d');
+      this.ctx.beginPath();
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeStyle = '#FF0000';
+      this.ctx.moveTo(posX_initial, posY_initial);
+      this.ctx.lineTo(posX_final, posY_final);
+      this.ctx.stroke();
   }
   
   lineDrawer_UR(drawNumber: boolean){
