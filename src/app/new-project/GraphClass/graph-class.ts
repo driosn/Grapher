@@ -7,6 +7,7 @@ const INF = 100000;
 var previo: Array <number> = new Array();
 var dijkstra_results: Array<number> = new Array();
 var warshall_travel: Array<number> = new Array();
+var prim_travel: Array<number> = new Array();
 
 export default travVal;
 

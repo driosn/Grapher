@@ -25,6 +25,7 @@ export class NewProjectComponent implements OnInit {
   canvas: any;
   ctx: CanvasRenderingContext2D;
   node_button;
+  simpson_button;
   ur_button;
   dr_button;
   urCost_button;
@@ -53,6 +54,7 @@ export class NewProjectComponent implements OnInit {
 
   ngOnInit() {
     this.node_button = document.getElementById('add-node');
+    this.simpson_button = document.getElementById('simpson-btn');
     this.ur_button = document.getElementById('ur-btn');
     this.dr_button = document.getElementById('dr-btn');
     this.urCost_button = document.getElementById('ur-btn-cost');
@@ -80,6 +82,20 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "transaprent";
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "transparent";
+    });
+    this.simpson_button.addEventListener('click', () => {
+      // alert("Ejemplo simpson");
+      this.node_button.style.backgroundColor = "transparent";
+      this.ur_button.style.backgroundColor = "transparent";
+      this.dr_button.style.backgroundColor = "transparent";
+      this.urCost_button.style.backgroundColor = "transparent";
+      this.drCost_button.style.backgroundColor = "transparent";
+      this.dfs_button.style.backgroundColor = "transaprent";
+      this.bfs_button.style.backgroundColor = "transparent";
+      this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "#1976D2";
+      this.simpsonsExample();
     });
     this.ur_button.addEventListener('click', (ev) => {
       this.node_button.style.backgroundColor = "transparent";
@@ -90,6 +106,7 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "transaprent";
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "transparent";
       this.addUndirectedRelation(ev);
       costOption = false;
     });
@@ -102,6 +119,7 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "transaprent";
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "transparent";
       this.addDirectedRelation(ev);
       costOption = false;
     });
@@ -114,6 +132,7 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "transaprent";
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "transparent";
       this.addUndirectedRelation(ev);
       costOption = true;
     });
@@ -126,6 +145,7 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "transaprent";
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "transparent";
       this.addDirectedRelation(ev);
       costOption = true;
   })
@@ -137,6 +157,7 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "#1976D2";
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "transparent";
       console.log('Inicio DFS');
       this.startDFS(this.project_graph);
     });
@@ -148,6 +169,7 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "transaprent";
       this.bfs_button.style.backgroundColor = "#1976D2";
       this.dijkstra_button.style.backgroundColor = "transparent";
+      this.simpson_button.style.backgroundColor = "transparent";
       console.log('Inicio BFS');
       this.startBFS(this.project_graph);
     });
@@ -159,6 +181,7 @@ export class NewProjectComponent implements OnInit {
       this.dfs_button.style.backgroundColor = "transaprent";
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "#1976D2";
+      this.simpson_button.style.backgroundColor = "transparent";
       console.log('Inicio Dijkstra');
       this.startDijkstra(this.project_graph);
     });
@@ -171,6 +194,7 @@ export class NewProjectComponent implements OnInit {
       this.bfs_button.style.backgroundColor = "transparent";
       this.dijkstra_button.style.backgroundColor = "transparent";
       this.warshall_button.style.backgroundColor = "#1976D2";
+      this.simpson_button.style.backgroundColor = "transparent";
       console.log('Inicio Floyd Warshall');
       this.startWarshall(this.project_graph);
     });
@@ -184,6 +208,7 @@ export class NewProjectComponent implements OnInit {
       this.dijkstra_button.style.backgroundColor = "transparent";
       this.warshall_button.style.backgroundColor = "transparent";
       this.prim_button.style.backgroundColor = "#1976D2";
+      this.simpson_button.style.backgroundColor = "transparent";
       console.log('Inicio Algoritmo Prim');
       this.startPrim(this.project_graph);
     });
@@ -213,6 +238,35 @@ export class NewProjectComponent implements OnInit {
     var node = new Node(nodeVal, pos.offsetX, pos.offsetY, this.canvas, this.ctx);
     this.project_graph.addNode(node);
     console.log(this.project_graph);
+    nodeVal++;
+  }
+
+  simpsonsExample(){
+    this.createNodeForSimpsonsExample(100, this.canvas.height/2);
+    this.createNodeForSimpsonsExample(220, 200);
+    this.createNodeForSimpsonsExample(220, 500);
+    this.createNodeForSimpsonsExample(340, 100);
+    this.createNodeForSimpsonsExample(340, this.canvas.height/2);
+    this.createNodeForSimpsonsExample(340, 600);
+    this.createNodeForSimpsonsExample(460, 200);
+    this.createNodeForSimpsonsExample(460, 500);
+    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
+    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
+    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
+    // this.createNodeForSimpsonsExample(580, this.canvas.height/2);
+    // this.createNodeForSimpsonsExample(100, this.canvas.height/2);
+    // this.createNodeForSimpsonsExample(100, this.canvas.height/2);
+    // this.createNodeForSimpsonsExample(100, this.canvas.height/2);
+    // console.log(this.project_graph);
+    console.log(this.canvas.height);
+    console.log(this.canvas.width);
+  }
+  
+  // Alto del canvas es 700
+  // Ancho del canvas es 900
+  createNodeForSimpsonsExample(posX, posY){
+    var node = new Node(nodeVal, posX, posY, this.canvas, this.ctx);
+    this.project_graph.addNode(node);
     nodeVal++;
   }
 
