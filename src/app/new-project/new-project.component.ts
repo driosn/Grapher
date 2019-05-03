@@ -317,6 +317,62 @@ export class NewProjectComponent implements OnInit {
     this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[12].positionX+this.project_graph.nodes[13].positionX)/2, (this.project_graph.nodes[12].positionY+this.project_graph.nodes[13].positionY)/2 - 10, "8");
     this.project_graph.drawText(this.canvas, this.ctx, (this.project_graph.nodes[13].positionX+this.project_graph.nodes[14].positionX)/2, (this.project_graph.nodes[13].positionY+this.project_graph.nodes[14].positionY)/2 - 10, "7");
 
+    this.createUndirectedRelation(this.project_graph.nodes[0], this.project_graph.nodes[1], 8);
+    this.createUndirectedRelation(this.project_graph.nodes[0], this.project_graph.nodes[4], 10);
+    this.createUndirectedRelation(this.project_graph.nodes[0], this.project_graph.nodes[2], 17);
+    
+    this.createUndirectedRelation(this.project_graph.nodes[1], this.project_graph.nodes[3], 6);
+    this.createUndirectedRelation(this.project_graph.nodes[1], this.project_graph.nodes[6], 11);
+    this.createUndirectedRelation(this.project_graph.nodes[1], this.project_graph.nodes[4], 12);
+    
+    this.createUndirectedRelation(this.project_graph.nodes[2], this.project_graph.nodes[4], 6);
+    this.createUndirectedRelation(this.project_graph.nodes[2], this.project_graph.nodes[5], 8);
+
+    this.createUndirectedRelation(this.project_graph.nodes[3], this.project_graph.nodes[8], 12);
+    this.createUndirectedRelation(this.project_graph.nodes[3], this.project_graph.nodes[6], 9);
+
+    this.createUndirectedRelation(this.project_graph.nodes[4], this.project_graph.nodes[6], 9);
+    this.createUndirectedRelation(this.project_graph.nodes[4], this.project_graph.nodes[10], 25);
+    this.createUndirectedRelation(this.project_graph.nodes[4], this.project_graph.nodes[8], 21);
+
+    this.createUndirectedRelation(this.project_graph.nodes[5], this.project_graph.nodes[7], 10);
+    this.createUndirectedRelation(this.project_graph.nodes[5], this.project_graph.nodes[11], 1);
+
+    this.createUndirectedRelation(this.project_graph.nodes[6], this.project_graph.nodes[8], 10);
+    this.createUndirectedRelation(this.project_graph.nodes[6], this.project_graph.nodes[9], 15);
+
+    this.createUndirectedRelation(this.project_graph.nodes[7], this.project_graph.nodes[10], 4);
+    this.createUndirectedRelation(this.project_graph.nodes[7], this.project_graph.nodes[11], 5);
+
+    this.createUndirectedRelation(this.project_graph.nodes[8], this.project_graph.nodes[12], 13);
+    this.createUndirectedRelation(this.project_graph.nodes[8], this.project_graph.nodes[9], 8);
+
+    this.createUndirectedRelation(this.project_graph.nodes[9], this.project_graph.nodes[12], 5);
+    this.createUndirectedRelation(this.project_graph.nodes[9], this.project_graph.nodes[13], 10);
+    this.createUndirectedRelation(this.project_graph.nodes[9], this.project_graph.nodes[10], 6);
+
+    this.createUndirectedRelation(this.project_graph.nodes[10], this.project_graph.nodes[14], 2);
+
+    this.createUndirectedRelation(this.project_graph.nodes[11], this.project_graph.nodes[14], 12);
+
+    this.createUndirectedRelation(this.project_graph.nodes[12], this.project_graph.nodes[13], 8);
+
+    this.createUndirectedRelation(this.project_graph.nodes[13], this.project_graph.nodes[14], 7);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
@@ -470,6 +526,13 @@ export class NewProjectComponent implements OnInit {
     if(ev.offsetX > 450 && ev.offsetY < 350) return 2;
     if(ev.offsetX < 450 && ev.offsetY > 350) return 3;
     if(ev.offsetX > 450 && ev.offsetY > 350) return 4;
+  }
+
+  createUndirectedRelation(nodeA, nodeB, costVal){
+    nodeA.addRelation(nodeB);
+    nodeB.addRelation(nodeA);
+    nodeA.addCost(costVal);
+    nodeB.addCost(costVal);
   }
   
 }

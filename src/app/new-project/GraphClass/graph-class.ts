@@ -333,9 +333,9 @@ export class Graph{
   drawDijkstraTravel(canvas: any, ctx: CanvasRenderingContext2D){
     var posX: number = 580;
     const posY: number = 570;
-    this.drawText(canvas, ctx, 550, 530, "El recorrido es el siguiente: ");
+    this.drawText(canvas, ctx, 550, 650, "El recorrido es el siguiente: ");
     for(let i=0; i<dijkstra_results.length; i++){
-      this.drawText(canvas, ctx, posX, posY, (dijkstra_results[i]+1).toString());
+      this.drawText(canvas, ctx, posX, posY+120, (dijkstra_results[i]+1).toString());
       posX += 30;
     }
   }
@@ -406,7 +406,7 @@ export class Graph{
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.font = "bold 20px Arial";
-    ctx.fillText(`La distancia minima es: ${distance}`, 550, 500);
+    ctx.fillText(`La distancia minima es: ${distance}`, 550, 620);
   }
 
   drawText(canvas: any, ctx: CanvasRenderingContext2D, posX: number, posY: number, myText: string){
